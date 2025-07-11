@@ -6,7 +6,7 @@ def get_file_content(working_directory,file_path):
     parent_path = os.path.abspath(working_directory)
     child_path = os.path.abspath(full_path)
     if os.path.commonpath([parent_path]) != os.path.commonpath([parent_path, child_path]):
-        return f'Error: Cannot list "{file_path}" as it is outside the permitted working directory'
+        return f'Error: Cannot read "{file_path}" as it is outside the permitted working directory'
     if not os.path.isfile(child_path):
         return f'Error: File not found or is not a regular file: "{file_path}"'
     try:
