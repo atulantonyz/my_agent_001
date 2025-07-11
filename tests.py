@@ -1,13 +1,16 @@
 from functions.get_files_info import get_files_info
 from functions.get_file_content import get_file_content
 from functions.write_file import write_file
+from functions.run_python import run_python_file
 
-res1 = write_file("calculator", "lorem.txt", "wait, this isn't lorem ipsum")
+res1 = run_python_file("calculator", "main.py")
 print(res1)
-res2 = write_file("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet")
+res2 = run_python_file("calculator", "tests.py")
 print(res2)
-res3 = write_file("calculator", "/tmp/temp.txt", "this should not be allowed")
+res3 = run_python_file("calculator", "../main.py")
 print(res3)
+res4 = run_python_file("calculator", "nonexistent.py")
+print(res4)
 
 
 
