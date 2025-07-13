@@ -7,6 +7,7 @@ from functions.get_files_info import schema_get_files_info
 from functions.get_file_content import schema_get_files_content
 from functions.write_file import schema_write_to_file
 from functions.run_python import schema_run_python_file
+from functions.call_functions import call_function
 
 
 def main():
@@ -51,7 +52,14 @@ All paths you provide should be relative to the working directory. You do not ne
         print("Response tokens:",res.usage_metadata.candidates_token_count)
     if res.function_calls:
         for fc in res.function_calls:
-            print(f"Calling function: {fc.name}({fc.args})")
+            #print(f"Calling function: {fc.name}({fc.args})")
+            function_call_result = call_function(fc,verbose)
+            try:
+                response = function_call_result.parts[0].function_response.response
+                if verbose:
+                    print(f"-> {response}")
+            except Exception as e:
+                raise Exception(f"Error: calling function {fc.name}: {e}")
     print(res.text)
 if __name__ == "__main__":
     main()
